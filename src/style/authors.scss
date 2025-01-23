@@ -1,0 +1,51 @@
+.author-layout {
+  min-height: 100vh;
+}
+
+.author-header {
+  background: #001529;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  align-items: center;
+
+  .navbar-left {
+    font-size: 18px;
+  }
+
+  .navbar-right {
+    .ant-btn {
+      background-color: #1890ff;
+      border: none;
+    }
+  }
+}
+
+.author-content {
+  padding: 50px;
+  background-color: #f0f2f5;
+  .user-list-container {
+    .ant-table {
+      margin-top: 20px;
+      background-color: #fff;
+    }
+
+    .add-user-button {
+      margin-bottom: 20px;
+      .ant-btn {
+        background-color: #52c41a;
+        font-weight: bold;
+        border: none;
+        color: white;
+      }
+    }
+  }
+}
+
+.author-footer {
+  background: #001529;
+  color: white;
+  text-align: center;
+  padding: 10px;
+}

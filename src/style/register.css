@@ -1,0 +1,33 @@
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+.register-container Form {
+  width: 400px;
+  background: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+.register-container Form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #1890ff;
+}
+.register-container Form .ant-btn-primary {
+  width: 100%;
+}
+.register-container Form .register-links {
+  text-align: center;
+  margin-top: 15px;
+}
+.register-container Form .register-links .ant-btn-link {
+  padding: 0;
+  color: #1890ff;
+}
+.register-container Form .register-links .ant-btn-link:hover {
+  text-decoration: underline;
+}/*# sourceMappingURL=register.css.map */

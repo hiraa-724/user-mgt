@@ -1,0 +1,11 @@
+.home {
+  padding: 20px;
+}
+.home .add-btn {
+  margin-bottom: 20px;
+}
+.home .users-table {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}/*# sourceMappingURL=home.css.map */

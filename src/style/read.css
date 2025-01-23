@@ -1,0 +1,22 @@
+.read-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+.read-container .read-card {
+  width: 400px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+.read-container .read-card .user-info {
+  margin: 10px 0;
+  display: flex;
+  justify-content: space-between;
+}
+.read-container .read-card .actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-start;
+}/*# sourceMappingURL=read.css.map */
