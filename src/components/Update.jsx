@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { Form, Input, Button, message, Spin } from "antd";
-import axios from "axios";
+import { message, Spin } from "antd";
+import * as yup from "yup";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+//import axios from "axios";
 import { fetchUser, updateUserData, setError } from "../slice/userSlice";
 import "../style/update.scss";
 
@@ -15,16 +17,19 @@ const Update = () => {
   const status = useSelector((state) => state.users.status);
   const error = useSelector((state) => state.users.error);
 
-  const [form] = Form.useForm();
+  const newValidations = yup.object({
+    name: yup.string().required("Please enter the name"),
+    email: yup
+      .string()
+      .email("Please enter a valid email")
+      .required("Please enter the email"),
+    phone: yup.string().required("Please enter phone"),
+  });
 
   useEffect(() => {
     if (id) {
-      dispatch(fetchUser(id));
-      axios
-        .get(`http://localhost:3000/users/${id}`)
-        .then((response) => {
-          dispatch(fetchUser(id));
-        })
+      dispatch(fetchUser(id))
+        .then(() => {})
         .catch((err) => {
           dispatch(setError(err.message));
           message.error("Failed to fetch user data.");
@@ -32,17 +37,7 @@ const Update = () => {
     }
   }, [dispatch, id]);
 
-  useEffect(() => {
-    if (selectedUser) {
-      form.setFieldsValue({
-        name: selectedUser.name || "",
-        email: selectedUser.email || "",
-        phone: selectedUser.phone || "",
-      });
-    }
-  }, [selectedUser, form]);
-
-  const handleSubmit = (values) => {
+  const handleSubmit = (values, { setSubmitting }) => {
     const updatedUser = { id, ...values };
 
     dispatch(updateUserData(updatedUser))
@@ -53,67 +48,97 @@ const Update = () => {
       .catch((err) => {
         console.error("Update failed:", err);
         message.error("Update failed. Please try again.");
+      })
+      .finally(() => {
+        setSubmitting(false);
       });
   };
 
   if (status === "loading") {
     return (
-      <div className="update-user__loading">
+      <div className="update-userLoading">
         <Spin size="large" />
       </div>
     );
   }
 
   if (error) {
-    return <p className="update-user__error">Error: {error}</p>;
+    return <p className="update-userError">Error: {error}</p>;
   }
 
   return (
     <div className="update-user">
-      <Form
-        form={form}
-        layout="vertical"
-        className="update-user__form"
-        onFinish={handleSubmit}
+      <h1>Update User</h1>
+      <Formik
+        validationSchema={newValidations}
+        enableReinitialize
+        initialValues={{
+          name: selectedUser?.name || "",
+          email: selectedUser?.email || "",
+          phone: selectedUser?.phone || "",
+        }}
+        onSubmit={handleSubmit}
       >
-        <h1>Update User</h1>
-        <Form.Item
-          label="Name"
-          name="name"
-          rules={[{ required: true, message: "Please enter the name" }]}
-        >
-          <Input placeholder="Enter name" />
-        </Form.Item>
-        <Form.Item
-          label="Email"
-          name="email"
-          rules={[
-            { required: true, message: "Please enter the email" },
-            { type: "email", message: "Please enter a valid email" },
-          ]}
-        >
-          <Input placeholder="Enter email" />
-        </Form.Item>
-        <Form.Item
-          label="Phone"
-          name="phone"
-          rules={[
-            { required: true, message: "Please input the user's phone!" },
-          ]}
-        >
-          <Input placeholder="Enter Phone" />
-        </Form.Item>
-        <Form.Item>
-          <Button type="primary" htmlType="submit" block>
-            Update
-          </Button>
-        </Form.Item>
-        <Form.Item>
-          <Link to="/home">
-            <Button type="default">Back</Button>
-          </Link>
-        </Form.Item>
-      </Form>
+        {({ isSubmitting }) => (
+          <Form>
+            {/* name */}
+            <label htmlFor="name">Name</label>
+            <Field
+              type="text"
+              name="name"
+              placeholder="Enter name"
+              className="input-field"
+            />
+            <ErrorMessage
+              name="name"
+              component="div"
+              className="error-message"
+            />
+
+            {/* email */}
+            <label htmlFor="email">Email</label>
+            <Field
+              type="email"
+              name="email"
+              placeholder="Enter email"
+              className="input-field"
+            />
+            <ErrorMessage
+              name="email"
+              component="div"
+              className="error-message"
+            />
+
+            {/* phone */}
+            <label htmlFor="phone">Phone</label>
+            <Field
+              type="text"
+              name="phone"
+              placeholder="Enter phone"
+              className="input-field"
+            />
+            <ErrorMessage
+              name="phone"
+              component="div"
+              className="error-message"
+            />
+
+            <button
+              type="submit"
+              className="submit-btn"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Updating..." : "Update"}
+            </button>
+
+            <Link to="/home">
+              <button type="button" className="back-btn">
+                Back
+              </button>
+            </Link>
+          </Form>
+        )}
+      </Formik>
     </div>
   );
 };
