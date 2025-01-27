@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchUsers, deleteUserData } from "../slice/userSlice";
 import { logout } from "../slice/authSlice";
 import { Table, Button, Layout } from "antd";
-import "../style/authors.scss";
 
 const { Header, Content, Footer } = Layout;
 
@@ -53,39 +52,43 @@ function Authors() {
   ];
 
   return (
-    <Layout className="author-layout">
+    <Layout className="min-h-screen bg-slate-800">
       {/* Header */}
-      <Header className="author-header">
-        <div className="navbar-left">
-          {user?.email ? (
-            <span>Welcome, {user.email}</span>
-          ) : (
-            <span>Welcome</span>
-          )}
+      <Header className="bg-blue-600 text-white px-6 py-4 flex justify-between items-center">
+        <div className="text-lg font-semibold text-white">
+          {user?.email ? `Welcome, ${user.email}` : "Welcome"}
         </div>
-        <div className="navbar-right">
-          <Button type="primary" onClick={handleLogout}>
-            Logout
-          </Button>
-        </div>
+        <Button
+          type="primary"
+          onClick={handleLogout}
+          className="bg-red-600 hover:bg-red-700"
+        >
+          Logout
+        </Button>
       </Header>
 
       {/* Content */}
-      <Content className="author-content">
-        <div className="user-list-container">
-          <h1>User List</h1>
+      <Content className="p-6">
+        <div className="bg-gray-100 shadow-lg rounded-lg p-6">
+          <h1 className="text-2xl font-semibold mb-6 text-center">User List</h1>
 
           <Table
             columns={columns}
             dataSource={users}
             rowKey="id"
             loading={status === "loading"}
+            className="rounded-md"
           />
         </div>
       </Content>
 
       {/* Footer */}
-      <Footer className="author-footer"> 2025 Your Company</Footer>
+      <Footer>
+        <div className="bg-blue-600 text-white text-center py-4 w-full">
+          {" "}
+          2025 Your Company
+        </div>
+      </Footer>
     </Layout>
   );
 }

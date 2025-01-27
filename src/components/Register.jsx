@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { registerSuccess, registerFailure } from "../slice/authSlice";
-import "../style/register.scss";
+//import "../style/register.scss";
 
 const Register = () => {
   const [loading, setLoading] = useState(false);
@@ -55,57 +55,64 @@ const Register = () => {
   };
 
   return (
-    <div className="register-container">
-      <h1>Register</h1>
-      <Form form={form} onFinish={handleRegister} layout="vertical">
-        <Form.Item
-          label="Username"
-          name="username"
-          rules={[{ required: true, message: "Please input your username!" }]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          label="Email"
-          name="email"
-          rules={[
-            { required: true, message: "Please input your email!" },
-            { type: "email", message: "Please input a valid email!" },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          label="Password"
-          name="password"
-          rules={[
-            { required: true, message: "Please input your password!" },
-            { min: 6, message: "Password must be at least 6 characters!" },
-          ]}
-        >
-          <Input.Password />
-        </Form.Item>
-        <Form.Item
-          label="Role"
-          name="role"
-          rules={[{ required: true, message: "Please select a role!" }]}
-        >
-          <Select placeholder="Select Role">
-            <Select.Option value="ADMIN">Admin</Select.Option>
-            <Select.Option value="USER">User</Select.Option>
-          </Select>
-        </Form.Item>
-        <Form.Item className="ant-btn-primary">
-          <Button type="primary" htmlType="submit" loading={loading}>
-            Register
-          </Button>
-        </Form.Item>
-        <div className="register-links">
-          <Button type="link" onClick={() => navigate("/")}>
-            Already have an account? Login
-          </Button>
-        </div>
-      </Form>
+    <div className="flex items-center justify-center bg-gray-200 min-h-screen p-4">
+      <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
+        <h1 className="text-2xl font-bold text-center">Register</h1>
+        <Form form={form} onFinish={handleRegister} layout="vertical">
+          <Form.Item
+            label={<span className="font-medium">Username: </span>}
+            name="username"
+            rules={[{ required: true, message: "Please input your username!" }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            label={<span className="font-medium">Email: </span>}
+            name="email"
+            rules={[
+              { required: true, message: "Please input your email!" },
+              { type: "email", message: "Please input a valid email!" },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            label={<span className="font-medium">Password: </span>}
+            name="password"
+            rules={[
+              { required: true, message: "Please input your password!" },
+              { min: 6, message: "Password must be at least 6 characters!" },
+            ]}
+          >
+            <Input.Password />
+          </Form.Item>
+          <Form.Item
+            label={<span className="font-medium">Role: </span>}
+            name="role"
+            rules={[{ required: true, message: "Please select a role!" }]}
+          >
+            <Select placeholder="Select Role">
+              <Select.Option value="ADMIN">Admin</Select.Option>
+              <Select.Option value="USER">User</Select.Option>
+            </Select>
+          </Form.Item>
+          <Form.Item>
+            <Button
+              className="w-full rounded-md font-bold"
+              type="primary"
+              htmlType="submit"
+              loading={loading}
+            >
+              Register
+            </Button>
+          </Form.Item>
+          <div className="text-center">
+            <Button type="link" onClick={() => navigate("/")}>
+              Already have an account? Login
+            </Button>
+          </div>
+        </Form>
+      </div>
     </div>
   );
 };

@@ -6,7 +6,6 @@ import * as yup from "yup";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 //import axios from "axios";
 import { fetchUser, updateUserData, setError } from "../slice/userSlice";
-import "../style/update.scss";
 
 const Update = () => {
   const { id } = useParams();
@@ -56,19 +55,19 @@ const Update = () => {
 
   if (status === "loading") {
     return (
-      <div className="update-userLoading">
+      <div className="flex justify-center items-center min-h-screen">
         <Spin size="large" />
       </div>
     );
   }
 
   if (error) {
-    return <p className="update-userError">Error: {error}</p>;
+    return <p className="text-red-500 text-center">Error: {error}</p>;
   }
 
   return (
-    <div className="update-user">
-      <h1>Update User</h1>
+    <div className="max-w-lg mx-auto p-6">
+      <h1 className="text-3xl font-semibold mb-6">Update User</h1>
       <Formik
         validationSchema={newValidations}
         enableReinitialize
@@ -80,62 +79,78 @@ const Update = () => {
         onSubmit={handleSubmit}
       >
         {({ isSubmitting }) => (
-          <Form>
+          <Form className="space-y-4">
             {/* name */}
-            <label htmlFor="name">Name</label>
-            <Field
-              type="text"
-              name="name"
-              placeholder="Enter name"
-              className="input-field"
-            />
-            <ErrorMessage
-              name="name"
-              component="div"
-              className="error-message"
-            />
+            <div>
+              <label htmlFor="name" className="block font-medium mb-2">
+                Name
+              </label>
+              <Field
+                type="text"
+                name="name"
+                placeholder="Enter name"
+                className="input-field w-full p-2 border border-gray-300 rounded-md"
+              />
+              <ErrorMessage
+                name="name"
+                component="div"
+                className="text-red-500 text-sm mt-1"
+              />
+            </div>
 
             {/* email */}
-            <label htmlFor="email">Email</label>
-            <Field
-              type="email"
-              name="email"
-              placeholder="Enter email"
-              className="input-field"
-            />
-            <ErrorMessage
-              name="email"
-              component="div"
-              className="error-message"
-            />
+            <div>
+              <label htmlFor="email" className="block font-medium mb-2">
+                Email
+              </label>
+              <Field
+                type="email"
+                name="email"
+                placeholder="Enter email"
+                className="input-field w-full p-2 border border-gray-300 rounded-md"
+              />
+              <ErrorMessage
+                name="email"
+                component="div"
+                className="text-red-500 text-sm mt-1"
+              />
+            </div>
 
             {/* phone */}
-            <label htmlFor="phone">Phone</label>
-            <Field
-              type="text"
-              name="phone"
-              placeholder="Enter phone"
-              className="input-field"
-            />
-            <ErrorMessage
-              name="phone"
-              component="div"
-              className="error-message"
-            />
+            <div>
+              <label htmlFor="phone" className="block font-medium mb-2">
+                Phone
+              </label>
+              <Field
+                type="text"
+                name="phone"
+                placeholder="Enter phone"
+                className="input-field w-full p-2 border border-gray-300 rounded-md"
+              />
+              <ErrorMessage
+                name="phone"
+                component="div"
+                className="text-red-500 text-sm mt-1"
+              />
+            </div>
 
-            <button
-              type="submit"
-              className="submit-btn"
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? "Updating..." : "Update"}
-            </button>
-
-            <Link to="/home">
-              <button type="button" className="back-btn">
-                Back
+            <div className="flex justify-between mt-6">
+              <button
+                type="submit"
+                className="bg-blue-600 text-white py-2 px-6 rounded-md hover:bg-blue-700"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Updating..." : "Update"}
               </button>
-            </Link>
+              <Link to="/home">
+                <button
+                  type="button"
+                  className="bg-gray-300 text-black py-2 px-6 rounded-md hover:bg-gray-400"
+                >
+                  Back
+                </button>
+              </Link>
+            </div>
           </Form>
         )}
       </Formik>

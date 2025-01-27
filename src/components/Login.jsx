@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { loginSuccess, loginFailure } from "../slice/authSlice";
 import axios from "axios";
-import "../style/login.scss";
+//import "../style/login.scss";
 
 function Login() {
   const auth = useSelector((state) => state.auth.isAuthenticated);
@@ -67,52 +67,73 @@ function Login() {
   };
 
   return (
-    <div className="login-container">
-      <Form
-        name="login"
-        layout="vertical"
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-        autoComplete="off"
-      >
-        <h2>Login</h2>
-        <Form.Item
-          name="username"
-          label="Username: "
-          rules={[{ required: true, message: "Please enter your username" }]}
+    <div className="flex items-center justify-center bg-gray-200 min-h-screen p-4">
+      <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
+        <Form
+          name="login"
+          layout="vertical"
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+          autoComplete="off"
         >
-          <Input placeholder="Enter your username" />
-        </Form.Item>
-        <Form.Item
-          name="password"
-          label="Password: "
-          rules={[
-            { required: true, message: "Please enter your password" },
-            {
-              min: 6,
-              message: "Password must be at least 6 characters",
-            },
-          ]}
-        >
-          <Input.Password placeholder="Enter your password" />
-        </Form.Item>
-        <Form.Item name="remember" valuePropName="checked">
-          <Checkbox>Remember me</Checkbox>
-        </Form.Item>
-        <Form.Item>
-          <Button type="primary" htmlType="submit" loading={loading}>
-            Login
-          </Button>
-        </Form.Item>
-        <div>
-          <Button type="link" onClick={() => navigate("/forgot-password")}>
-            Forgot Password
-          </Button>
-          <Button type="link" onClick={() => navigate("/register")}>
-            Register
-          </Button>
-        </div>
-      </Form>
+          <h2 className="text-2xl font-bold text-center">Login</h2>
+          <Form.Item
+            name="username"
+            label={<span className="font-medium">Username: </span>}
+            rules={[{ required: true, message: "Please enter your username" }]}
+          >
+            <Input
+              className="rounded border-black shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              placeholder="Enter your username"
+            />
+          </Form.Item>
+          <Form.Item
+            name="password"
+            label={<span className="font-medium">Password</span>}
+            rules={[
+              { required: true, message: "Please enter your password" },
+              {
+                min: 6,
+                message: "Password must be at least 6 characters",
+              },
+            ]}
+          >
+            <Input.Password
+              className="rounded border-black shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              placeholder="Enter your password"
+            />
+          </Form.Item>
+          <Form.Item name="remember" valuePropName="checked">
+            <Checkbox className="text-black">Remember me</Checkbox>
+          </Form.Item>
+          <Form.Item>
+            <Button
+              className="w-full rounded bg-blue-500 px-4 py-2 text-white font-bold hover:bg-blue-600"
+              type="primary"
+              htmlType="submit"
+              loading={loading}
+            >
+              Login
+            </Button>
+          </Form.Item>
+          <div className="flex items-center justify-between">
+            <Button
+              className="text-blue-500 hover:text-blue-600"
+              type="link"
+              onClick={() => navigate("/forgot-password")}
+            >
+              Forgot Password
+            </Button>
+            <Button
+              className="text-blue-500 hover:text-blue-600"
+              type="link"
+              onClick={() => navigate("/register")}
+            >
+              Register
+            </Button>
+          </div>
+        </Form>
+      </div>
     </div>
   );
 }

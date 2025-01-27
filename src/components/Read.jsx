@@ -3,7 +3,6 @@ import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUser } from "../slice/userSlice";
 import { Button } from "antd";
-import "../style/read.scss";
 
 function Read({ isEditable }) {
   const { id } = useParams();
@@ -16,35 +15,40 @@ function Read({ isEditable }) {
   }, [id, dispatch]);
 
   return (
-    <div className="container">
-      <h3>User Details</h3>
-      {status === "loading" ? (
-        <p>Loading...</p>
-      ) : (
-        <>
-          <p>
-            <strong>Name:</strong> {user?.name}
-          </p>
-          <p>
-            <strong>Email:</strong> {user?.email}
-          </p>
-          <p>
-            <strong>Phone:</strong> {user?.phone}
-          </p>
+    <div className="flex items-center justify-center p-4 bg-gray-300 min-h-screen">
+      <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
+        <h3 className="text-2xl text-center font-semibold mb-4">
+          User Details
+        </h3>
+        {status === "loading" ? (
+          <p className="text-gray-500">Loading...</p>
+        ) : (
+          <>
+            <p className="mb-2">
+              <strong className="font-medium">Name:</strong> {user?.name}
+            </p>
+            <p className="mb-2">
+              <strong className="font-medium">Email:</strong> {user?.email}
+            </p>
+            <p className="mb-4">
+              <strong className="font-medium">Phone:</strong> {user?.phone}
+            </p>
 
-          {/* Conditional rendering for Edit button */}
-          {isEditable && (
-            <Link to={`/update/${id}`}>
-              <Button type="primary">Edit</Button>
+            {/* Conditional rendering for Edit button */}
+            {isEditable && (
+              <Link to={`/update/${id}`} className="inline-block mb-4">
+                <Button type="primary" className="mr-2">
+                  Edit
+                </Button>
+              </Link>
+            )}
+
+            <Link to="/home" className="inline-block">
+              <Button type="default">Back</Button>
             </Link>
-          )}
-          <Link to="/home">
-            <Button type="default" style={{ marginLeft: isEditable ? 10 : 0 }}>
-              Back
-            </Button>
-          </Link>
-        </>
-      )}
+          </>
+        )}
+      </div>
     </div>
   );
 }

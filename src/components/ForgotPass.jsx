@@ -8,7 +8,7 @@ import {
   forgotPasswordSuccess,
   forgotPasswordFailure,
 } from "../slice/authSlice";
-import "../style/forgot-password.scss";
+//import "../style/forgot-password.scss";
 
 function ForgotPassword() {
   const [loading, setLoading] = useState(false);
@@ -45,42 +45,52 @@ function ForgotPassword() {
   };
 
   return (
-    <div className="forgot-password-container">
-      <Form
-        name="forgot-password"
-        layout="vertical"
-        autoComplete="off"
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-      >
-        <h2>Forgot Password</h2>
-        <Form.Item
-          name="email"
-          label="Email: "
-          rules={[
-            {
-              required: true,
-              message: "Please enter your Email Address",
-            },
-            {
-              type: "email",
-              message: "Enter a valid Email Address",
-            },
-          ]}
+    <div className="flex items-center justify-center bg-gray-200 min-h-screen p-4">
+      <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
+        <Form
+          name="forgot-password"
+          layout="vertical"
+          autoComplete="off"
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
         >
-          <Input placeholder="Enter your registered Email" />
-        </Form.Item>
-        <Form.Item>
-          <Button type="primary" htmlType="submit" loading={loading}>
-            Reset Password
-          </Button>
-        </Form.Item>
-        <div className="forgot-password-links">
-          <Button type="link" onClick={() => navigate("/")}>
-            Back to Login
-          </Button>
-        </div>
-      </Form>
+          <h2 className="text-2xl font-bold text-center">Forgot Password</h2>
+          <Form.Item
+            name="email"
+            label={<span className="font-medium">Email: </span>}
+            rules={[
+              {
+                required: true,
+                message: "Please enter your Email Address",
+              },
+              {
+                type: "email",
+                message: "Enter a valid Email Address",
+              },
+            ]}
+          >
+            <Input
+              className="rounded border-black shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              placeholder="Enter your registered Email"
+            />
+          </Form.Item>
+          <Form.Item>
+            <Button
+              className="w-full rounded-md font-bold"
+              type="primary"
+              htmlType="submit"
+              loading={loading}
+            >
+              Reset Password
+            </Button>
+          </Form.Item>
+          <div className="flex items-center justify-center">
+            <Button type="link" onClick={() => navigate("/")}>
+              Back to Login
+            </Button>
+          </div>
+        </Form>
+      </div>
     </div>
   );
 }

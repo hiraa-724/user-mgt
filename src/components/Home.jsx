@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchUsers, deleteUserData } from "../slice/userSlice";
 import { logout } from "../slice/authSlice";
 import { Table, Button, Layout, Modal } from "antd";
-import "../style/home.scss";
+//import "../style/home.scss";
 const { Header, Content, Footer } = Layout;
 
 function Home() {
@@ -61,7 +61,7 @@ function Home() {
       key: "actions",
       render: (_, record) => (
         <>
-          <div className="action-buttons">
+          <div className="flex space-x-2">
             <Button
               type="default"
               onClick={() => navigate(`/read/${record.id}`)}
@@ -88,10 +88,10 @@ function Home() {
   ];
 
   return (
-    <Layout className="home-layout">
+    <Layout>
       {/* Header */}
-      <Header className="home-header">
-        <div className="navbar-left">
+      <Header className="bg-blue-600 text-white flex justify-between items-center p-4">
+        <div className="text-lg font-semibold text-white">
           {user?.email ? (
             <span>Welcome, {user.email}</span>
           ) : (
@@ -106,15 +106,20 @@ function Home() {
       </Header>
 
       {/* Content */}
-      <Content className="home-content">
-        <div className="user-list-container">
-          <h1>User List</h1>
-          <div className="add-user-button">
-            <Button type="primary" onClick={() => navigate("/create")}>
+      <Content className="p-8">
+        <div className="bg-white p-6 rounded-lg shadow-lg">
+          <h1 className="text-2xl font-semibold mb-4 text-center">User List</h1>
+          <div className="mb-4">
+            <Button
+              className="bg-green-500 hover:bg-green-600"
+              type="primary"
+              onClick={() => navigate("/create")}
+            >
               Add User
             </Button>
           </div>
           <Table
+            className="w-full"
             columns={columns}
             dataSource={users}
             rowKey="id"
@@ -124,7 +129,12 @@ function Home() {
       </Content>
 
       {/* Footer */}
-      <Footer className="home-footer"> 2025 Your Company</Footer>
+      <Footer>
+        <div className="bg-blue-600 text-white text-center py-4 w-full">
+          {" "}
+          2025 Your Company
+        </div>
+      </Footer>
     </Layout>
   );
 }
